@@ -87,7 +87,7 @@ int main(int argc, char* argv[])
 {
 	parseOpts(argc, argv);
 	
-	Clock *now;
+	Clock *now = new Clock(lng);
 	if(fuzzy)
 		now = new Fuzzyclock(lng);
 	else if(qlock)
