@@ -6,11 +6,10 @@
 class Qlock : public Clock
 {
 	private:
-		bool dots;
 		std::string dot_string();
 
 	public:
-		Qlock(std::string _lng, bool _dots);
+		Qlock(std::string _lng);
 		std::string to_string();
 };
 

@@ -10,7 +10,6 @@ using namespace std;
 
 bool fuzzy = false;
 bool qlock = false;
-bool qlock_dots = false;
 string lng = "de";
 
 void printHelp()
@@ -21,7 +20,6 @@ void printHelp()
 	cout << "Usage: textclock <option>" << endl;
 	cout << "	options: -f		fuzzy clock mode" << endl;
 	cout << "		 -q		qlock clock mode" << endl;
-	cout << "		 -d		enable minutes dots for qlock clock mode" << endl;
 	cout << "		 -l		set output language." << endl;
 	cout << "		 -h		print this help" << endl;
 	cout << "	languages:		";
@@ -41,13 +39,10 @@ void parseOpts(int argc, char* argv[])
 	bool foundlng = false;
 	int opt = 0, i = 0;
 
-	while((opt = getopt(argc, argv, "dfhl:q")) != -1)
+	while((opt = getopt(argc, argv, "fhl:q")) != -1)
 	{
 		switch(opt)
 		{
-			case 'd':
-				qlock_dots = true;
-				break;
 			case 'f':
 				fuzzy = true;
 				break;
@@ -91,7 +86,7 @@ int main(int argc, char* argv[])
 	if(fuzzy)
 		now = new Fuzzyclock(lng);
 	else if(qlock)
-		now = new Qlock(lng, qlock_dots);
+		now = new Qlock(lng);
 
 	cout << now->to_string() << endl;
 	 

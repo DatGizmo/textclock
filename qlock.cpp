@@ -29,19 +29,17 @@ string Qlock::dot_string()
 	return retval;
 }
 
-Qlock::Qlock(string _lng, bool _dots)
+Qlock::Qlock(string _lng)
 	:Clock(_lng)
 {
 	mod_calc = 5;
 	add_hr_index = 3;
-	dots = _dots;
 }
 
 string Qlock::to_string()
 {
 	string retval =	Clock::to_string();
-	if(dots)
-		retval.append(dot_string());
+	retval.append(dot_string());
 
 	return retval;
 
