@@ -70,6 +70,7 @@ void parseOpts(int argc, char* argv[])
 
 int main(int argc, char* argv[])
 {
+	Clock *now = NULL;
 	parseOpts(argc, argv);
 	
 	if(qlock)
@@ -77,7 +78,9 @@ int main(int argc, char* argv[])
 	else
 		now = new Fuzzyclock(lng);
 
-	cout << now->to_string() << endl;
-	 
-	delete now;
+	if(NULL != now)
+	{
+		cout << now->to_string() << endl;
+		delete now;
+	}
 }
