@@ -8,7 +8,6 @@
 
 using namespace std;
 
-bool fuzzy = false;
 bool qlock = false;
 string lng = "de";
 
@@ -16,10 +15,9 @@ void printHelp()
 {
 	int i = 0;
 
-	cout << "Simple textclock printout." << endl;
+	cout << "Simple textclock printout, fuzzy mode is default." << endl;
 	cout << "Usage: textclock <option>" << endl;
-	cout << "	options: -f		fuzzy clock mode" << endl;
-	cout << "		 -q		qlock clock mode" << endl;
+	cout << "	options: -q		qlock clock mode" << endl;
 	cout << "		 -l		set output language." << endl;
 	cout << "		 -h		print this help" << endl;
 	cout << "	languages:		";
@@ -39,13 +37,10 @@ void parseOpts(int argc, char* argv[])
 	bool foundlng = false;
 	int opt = 0, i = 0;
 
-	while((opt = getopt(argc, argv, "fhl:q")) != -1)
+	while((opt = getopt(argc, argv, "hl:q")) != -1)
 	{
 		switch(opt)
 		{
-			case 'f':
-				fuzzy = true;
-				break;
 			case 'l':
 				lng = optarg;
 				for(i=0; i<MAX_LNG; ++i)
@@ -71,22 +66,16 @@ void parseOpts(int argc, char* argv[])
 				break;
 		}
 	}
-	if(qlock && fuzzy)
-	{
-		cout << "Qlock and fuzzy can't be set at the same time!" << endl << endl;
-		printHelp();
-	}
 }
 
 int main(int argc, char* argv[])
 {
 	parseOpts(argc, argv);
 	
-	Clock *now = new Clock(lng);
-	if(fuzzy)
-		now = new Fuzzyclock(lng);
-	else if(qlock)
+	if(qlock)
 		now = new Qlock(lng);
+	else
+		now = new Fuzzyclock(lng);
 
 	cout << now->to_string() << endl;
 	 
