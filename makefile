@@ -1,16 +1,17 @@
-CPP=g++
-CFLAGS=-std=c++11
-DEPS=strings.h clock.h fuzzyclock.h qlock.h 
-OBJ=strings.cpp clock.cpp fuzzyclock.cpp qlock.cpp textclock.cpp
-BINS=textclock
+CXX = g++
+CXXFLAGS += -std=c++11
 
-%.o: %cpp $(DEPS)
-	$(CPP) -c -o $@ $< $(CFLAGS)
+TARGET = textclock
 
-textclock: $(OBJ)
-	$(CPP) -o $@ $^ $(CFLAGS)
+SOURCES = $(wildcard *.cpp)
+OBJECTS = $(SOURCES:.cpp=.o)
 
-all: textclock
+$(TARGET): $(OBJECTS)
+	$(CXX) -o $(TARGET) $(OBJECTS)
 
-clean: 
-	rm -f $(BINS) *.o
+all: $(TARGET)
+	@echo Build done.
+
+clean:
+	rm -f $(OBJECTS) $(TARGET)
+
